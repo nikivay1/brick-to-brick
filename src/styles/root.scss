@@ -1,0 +1,18 @@
+@import '@/styles/root/offsets.scss';
+@import '@/styles/root/borders.scss';
+
+@import '@/styles/_flex.scss';
+
+#app {
+  text-align: center;
+}
+
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.no-warp{
+  text-wrap: nowrap;
+}

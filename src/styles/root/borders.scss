@@ -1,0 +1,20 @@
+:root {
+  --border-size-1: 1px;
+  --border-size-2: 2px;
+  --border-size-3: 3px;
+
+  --border-1-transparent: 1px solid transparent;
+  --border-1-divider-gray: 1px solid var(--divider-primary);
+  --border-1-gray-90: 1px solid var(--gray-90);
+  --border-1-gray-60: 1px solid var(--gray-60);
+  --border-1-brand-static: 1px solid var(--brand-static);
+
+  /* --- border-radius --- */
+  --border-radius-2: 2px;
+  --border-radius-4: 4px;
+  --border-radius-8: 8px;
+  --border-radius-16: 16px;
+
+  /* --- text-decoration --- */
+  --text-decoration-underline-1: solid underline currentColor;
+}
