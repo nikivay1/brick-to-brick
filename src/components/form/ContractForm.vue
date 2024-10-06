@@ -105,7 +105,6 @@ const handleDragOver = (event) => {
   event.dataTransfer.dropEffect = 'copy';
   dropZoneMessage.value = 'Отпустите файл для загрузки';
 };
-
 // Обработка события ухода файла из области
 const handleDragLeave = () => {
   dropZoneMessage.value = 'Перетащите файл сюда или выберите файл вручную';

@@ -1,9 +1,10 @@
 <template>
   <div class="user-avatar">
-    <img :src="props.avatarUrl" alt="Avatar" class="avatar" />
+    <img v-if="avatarUrl" :src="avatarUrl" alt="Avatar" class="avatar" />
+    <img v-if="!avatarUrl" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Avatar" class="avatar" />
     <div class="user-info flex flex-column justify-space-between">
       <div class="user-info_name">
-        <h2>{{ props.name }}</h2>
+        <h2>{{ name }}</h2>
 
         <i v-if="gender === 'male'" class="fa-solid fa-person gender-icon male"></i>
         <i v-else-if="gender === 'female'" class="fa-solid fa-person-dress gender-icon female"></i>
@@ -29,7 +30,7 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
   name: {
     type: String,
     required: true
