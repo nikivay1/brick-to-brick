@@ -5,6 +5,7 @@
     "parentPhone": "8-900-000-00-00",
     "address": "г. Краснодар, ул. Советская 24, кв. 208 ",
     "dob": "25.04.2004",
+    "gender": "female",
     "age": 17,
     "status": "active"
   },
