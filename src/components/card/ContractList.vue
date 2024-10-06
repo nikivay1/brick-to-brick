@@ -34,44 +34,18 @@ import ContractCard from '@/components/card/ContractCard.vue';
 import AppModal from '@/components/AppModal.vue';
 import DocumentForm from '@/components/form/DocumentForm.vue';
 import AddDocumentButton from '@/components/card/AddContractButton.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { onMounted } from 'vue';
 
-const contracts =  ref([
-  {
-    id: 1,
-    title: 'Договор №001',
-    status: 'active',
-    startDate: '04.07.2021',
-    endDate: '04.07.2022',
-    thumbnailUrl: 'https://via.placeholder.com/100x100?text=PDF'
-  },
-  {
-    id: 2,
-    title: 'Договор №002',
-    status: 'cancelled',
-    startDate: '04.07.2021',
-    endDate: '04.07.2022',
-    thumbnailUrl: 'https://via.placeholder.com/100x100?text=JPG'
-  },
-  {
-    id: 3,
-    title: 'Справка',
-    status: 'active',
-    startDate: '04.07.2021',
-    endDate: '04.07.2022',
-    thumbnailUrl: 'https://via.placeholder.com/100x100?text=DOC'
-  },
-  {
-    id: 4,
-    title: 'Анкета',
-    status: 'active',
-    startDate: '04.07.2021',
-    endDate: '',
-    thumbnailUrl: 'https://via.placeholder.com/100x100?text=XLS'
-  }
-]);
+
+const store = useStore();
+onMounted(async () => {
+  await store.dispatch('students/fetchStudentsContracts');
+});
+const contracts = computed(() => store.getters['students/contracts']);
+
 const isModalVisible = ref(false);
-
 const openModal = () => {
   isModalVisible.value = true;
 };

@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: () => ({
     students: [],
+    contracts: [],
     loading: false,
     error: null,
   }),
@@ -16,6 +17,9 @@ export default {
     },
     setError(state, error) {
       state.error = error;
+    },
+    setContracts(state, contracts) {
+      state.contracts = contracts;
     },
   },
   actions: {
@@ -32,10 +36,20 @@ export default {
       } finally {
         commit('setLoading', false);
       }
+    },
+    async fetchStudentsContracts({ commit }) {
+      try {
+        const response = await apiService.get('/contracts');
+        commit('setContracts', response.data);
+      } catch (error) {
+        commit('setError', 'Ошибка при загрузке списка контрактов');
+        console.error(error);
+      }
     }
   },
   getters: {
     students: (state) => state.students,
+    contracts: (state) => state.contracts,
     isLoading: (state) => state.loading,
     hasError: (state) => !!state.error,
     errorMessage: (state) => state.error

@@ -4,15 +4,15 @@
       <label>Тип документа:</label>
       <div class="flex flex-column align-start gap-1">
         <label>
-          <input type="radio" value="Договор" v-model="form.documentType" />
+          <input type="radio" value="contract" v-model="form.documentType" />
           Договор
         </label>
         <label>
-          <input type="radio" value="Справка" v-model="form.documentType" />
+          <input type="radio" value="synopsis" v-model="form.documentType" />
           Справка
         </label>
         <label>
-          <input type="radio" value="Другое" v-model="form.documentType" />
+          <input type="radio" value="other" v-model="form.documentType" />
           Другое
         </label>
       </div>
@@ -34,17 +34,17 @@
     </div>
 
     <div class="form-group flex gap-1">
-      <label :for="form.activeFrom">Действует с:</label>
+      <label :for="form.startDate">Действует с:</label>
       <Datepicker 
-        v-model="form.activeFrom"
+        v-model="form.startDate"
         lang="RU"        
         :format="'dd.MM.yyyy'"
         :show-calendar-on-focus="false"
         :auto-apply="true" 
       />
-      <label :for="form.activeTo">по:</label>
+      <label :for="form.endDate">по:</label>
       <Datepicker 
-        v-model="form.activeTo" 
+        v-model="form.endDate" 
         lang="RU"     
         :format="'dd.MM.yyyy'"
         :show-calendar-on-focus="false"
@@ -69,12 +69,20 @@
 
     </div>
 
-    <div class="form-group file-upload">
-      <div class="upload-area">
-        <p>Загрузить файл</p>
-        <input type="file" @change="handleFileUpload" />
-        <p>Выберите файл или перетащите его сюда</p>
+    <div class="form-group file-upload"
+      @dragover.prevent="handleDragOver"
+      @dragleave.prevent="handleDragLeave"
+      @drop.prevent="handleDrop"
+      @click="uploadFile"
+    >
+      <div class="flex flex-column">
+        <Icon src="plus.svg" large/>
+        <span class="file-upload_text">
+          Загрузить файл
+        </span>
       </div>
+      <p v-if="!form.file">{{ dropZoneMessage }}</p>
+      <p v-if="form.file">Загружен файл: {{ form.file.name }}</p>
     </div>
   </div>
   
@@ -83,24 +91,47 @@
 <script setup>
 import Datepicker from 'vue3-datepicker';
 import Input from '@/components/AppInput.vue';
+import Icon from '@/components/AppIcon.vue';
 import { ref } from 'vue';
 
 const form = ref({
   documentType: 'Договор',
   documentName: '',
   documentNumber: '',
-  activeFrom: null,
-  activeTo: null,
+  startDate: null,
+  endDate: null,
   notifyOnEnd: false,
   createTaskOnEnd: false,
   file: null,
 });
+const dropZoneMessage = ref('Выберите файл или перетащите его сюда');
 
-const handleFileUpload = (event) => {
-  form.value.file = event.target.files[0];
-  console.log('Загружен файл:', form.value.file);
+// Обработка события перетаскивания файла над областью
+const handleDragOver = (event) => {
+  event.dataTransfer.dropEffect = 'copy';
+  dropZoneMessage.value = 'Отпустите файл для загрузки';
 };
 
+// Обработка события ухода файла из области
+const handleDragLeave = () => {
+  dropZoneMessage.value = 'Перетащите файл сюда или выберите файл вручную';
+};
+// Обработка события "drop" - файл перетянут в область
+const handleDrop = (event) => {
+  const droppedFiles = event.dataTransfer.files;
+  if (droppedFiles.length) {
+    form.value.file = droppedFiles[0];
+    dropZoneMessage.value = `Файл "${form.value.file.name}" загружен`;
+  }
+};
+// Метод для загрузки файла 
+const uploadFile = () => {
+  if (this.file) {
+    console.log('Загруженный файл:', this.file);
+  } else {
+    alert('Пожалуйста, выберите файл для загрузки.');
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -129,6 +160,10 @@ const handleFileUpload = (event) => {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   font-size: 18px;
   color: #86939c;
+  &_text{
+    color: $text-main-color;
+    font-size: 18px;
+  }
 }
 .form-control {
   font-size: 2rem;
