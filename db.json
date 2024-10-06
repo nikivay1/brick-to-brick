@@ -1,28 +1,45 @@
 {
-  "posts": [
+  "student": {
+    "name": "Абрамова Екатерина",
+    "phone": "8-900-000-00-00",
+    "parentPhone": "8-900-000-00-00",
+    "address": "г. Краснодар, ул. Советская 24, кв. 208 ",
+    "dob": "25.04.2004",
+    "age": 17,
+    "status": "active"
+  },
+  "contracts": [    
     {
       "id": 1,
-      "title": "Post 1"
+      "title": "Договор №001",
+      "status": "active",
+      "startDate": "04.07.2021",
+      "endDate": "04.07.2022",
+      "thumbnailUrl": "https://via.placeholder.com/100x100?text=PDF"
     },
     {
       "id": 2,
-      "title": "Post 2"
+      "title": "Договор №002'",
+      "status": "cancelled",
+      "startDate": "04.07.2021",
+      "endDate": "04.07.2022",
+      "thumbnailUrl": "https://via.placeholder.com/100x100?text=JPG"
     },
     {
       "id": 3,
-      "title": "Post 3"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "Справка",
+      "status": "active",
+      "startDate": "04.07.2021",
+      "endDate": "04.07.2022",
+      "thumbnailUrl": "https://via.placeholder.com/100x100?text=DOC"
     },
     {
-      "id": 2,
-      "body": "some comment",
-      "postId": 1
+      "id": 4,
+      "title": "Анкета",
+      "status": "active",
+      "startDate": "",
+      "endDate": "",
+      "thumbnailUrl": "https://via.placeholder.com/100x100?text=XLS"
     }
   ],
   "profile": {
