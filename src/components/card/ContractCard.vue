@@ -2,13 +2,13 @@
   <div class="contract-card flex justify-space-between gap-4">
     <div class="contract-info flex flex-column justify-space-between">
       <div class="flex flex-column align-start gap-1">
-        <span class="contract-title text-ellipsis">{{ title }}</span>
+        <span class="contract-title text-ellipsis">{{ contract.documentName }}</span>
         <span class="contract-status flex align-center">
-          <span class="status-dot" :class="{ active: status === 'active' }"></span> {{ props.status === 'active' ? 'Заключен' : 'Расторгнут' }}
+          <span class="status-dot" :class="{ active: contract.status === 'active' }"></span> {{ contract.status === 'active' ? 'Заключен' : 'Расторгнут' }}
         </span>
 
         <div class="contract-dates">
-          {{ startDate }} - {{ endDate }}
+          {{ contract.startDate }} - {{ contract.endDate }}
         </div>
       </div>
 
@@ -20,7 +20,7 @@
     </div>
 
     <div class="contract-thumbnail">
-      <img :src="thumbnailUrl" alt="Contract Thumbnail" />
+      <Icon :src="`${contract.fileType}.svg`" width="58px" height="58px"/>
     </div>
   </div>
 </template>
@@ -31,26 +31,10 @@ import Icon from '@/components/AppIcon.vue';
 
 
 const props = defineProps({
-  title: {
-    type: String,
+  contract: {
+    type: Object,
     required: true
   },
-  status: {
-    type: String, // 'active', 'cancelled'
-    required: true
-  },
-  startDate: {
-    type: String,
-    required: true
-  },
-  endDate: {
-    type: String,
-    required: true
-  },
-  thumbnailUrl: {
-    type: String,
-    default: 'https://via.placeholder.com/100x100?text=JPG'
-  }
 });
 
 const printContract = () => {
@@ -104,11 +88,10 @@ const deleteContract = () => {
       }
     }
   }
-  &-thumbnail img {
-    width: 117px;
-    height: 117px;
+  &-thumbnail{
+    padding: 30px;
+    background-color: #F2F5F8;
     border-radius: 10px;
-    object-fit: contain;
   }
 }
 .status-dot {

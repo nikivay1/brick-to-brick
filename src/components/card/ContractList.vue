@@ -4,7 +4,7 @@
       <div class="filter-item flex flex-column align-start ">
         <label for="docType" class="filter-label">Тип документа</label>
         <div class="custom-select">
-          <select v-model="filters.docType" id="docType" class="styled-select" @change="getContracts">
+          <select v-model="filters.documentType" id="documentType" class="styled-select" @change="getContracts">
             <option value="null">Не выбрано</option>
             <option v-for="option in documentTypes" :key="option.value" :value="option.value">
               {{ option.name }}
@@ -46,11 +46,7 @@
     <ContractCard
       v-for="contract in contracts"
       :key="contract.id"
-      :title="contract.documentName"
-      :status="contract.status"
-      :startDate="contract.startDate"
-      :endDate="contract.endDate"
-      :thumbnailUrl="contract.thumbnailUrl"
+      :contract="contract"
     />
 
     <AddDocumentButton @click="openModal" />
@@ -61,7 +57,7 @@
       Добавить документ
     </template> 
     <template #default>
-      <DocumentForm v-model="form" />
+      <ContractForm v-model="form" />
     </template>
     <template #footer>
       <div class="flex justify-center gap-2">
@@ -75,7 +71,7 @@
 <script setup>
 import ContractCard from '@/components/card/ContractCard.vue';
 import AppModal from '@/components/AppModal.vue';
-import DocumentForm from '@/components/form/DocumentForm.vue';
+import ContractForm from '@/components/form/ContractForm.vue';
 import AddDocumentButton from '@/components/card/AddContractButton.vue';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
@@ -88,7 +84,7 @@ onMounted(async () => {
 const contracts = computed(() => store.getters['students/contracts']);
 
 const filters= ref({
-  docType: null,
+  documentType: null,
   status: null,
   sortBy: 'startDate',
 });

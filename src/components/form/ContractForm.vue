@@ -17,7 +17,6 @@
         </label>
       </div>
     </div>
-
     <div class="form-group flex gap-2">
       <Input
         v-model="model.documentName"
@@ -25,14 +24,12 @@
         :required="true"
       />
     </div>
-    
     <div class="form-group flex gap-2">
       <Input
         v-model="model.documentName"
         label="Номер"
       />
     </div>
-
     <div class="form-group flex gap-1">
       <label :for="model.startDate">Действует с:</label>
       <Datepicker 
@@ -59,21 +56,18 @@
           
         </label>
       </div>
-
       <div class="form-group flex gap-2">
         <label class="form-control" >
           <input type="checkbox" v-model="model.createTaskOnEnd" />
           <span>Создавать задачу при окончании</span>
         </label>
       </div>
-
     </div>
-
     <div class="form-group file-upload"
       @dragover.prevent="handleDragOver"
       @dragleave.prevent="handleDragLeave"
       @drop.prevent="handleDrop"
-      @click="uploadFile"
+      @click="triggerFileInput"
     >
       <div class="flex flex-column">
         <Icon src="plus.svg" large/>
@@ -81,6 +75,12 @@
           Загрузить файл
         </span>
       </div>
+      <input
+        type="file"
+        ref="fileInput"
+        style="display: none"
+        @change="handleFileUpload"
+      />
       <p v-if="!model.file">{{ dropZoneMessage }}</p>
       <p v-if="model.file">Загружен файл: {{ model.file.name }}</p>
     </div>
@@ -96,6 +96,7 @@ import { ref, defineModel} from 'vue';
 
 
 const model = defineModel();
+const fileInput = ref(null);
 
 const dropZoneMessage = ref('Выберите файл или перетащите его сюда');
 
@@ -117,13 +118,20 @@ const handleDrop = (event) => {
     dropZoneMessage.value = `Файл "${model.value.file.name}" загружен`;
   }
 };
-// Метод для загрузки файла 
-const uploadFile = () => {
-  if (this.file) {
-    console.log('Загруженный файл:', this.file);
-  } else {
-    alert('Пожалуйста, выберите файл для загрузки.');
+const handleFileUpload = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    model.value.file = file;
+    uploadFile(file);
   }
+};
+const uploadFile = (file) => {
+  console.log('Загруженный файл:', file);
+  const formData = new FormData();
+  formData.append('file', file);
+};
+const triggerFileInput = () => {
+  fileInput.value.click();
 };
 </script>
 

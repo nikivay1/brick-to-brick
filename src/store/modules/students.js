@@ -45,7 +45,7 @@ export default {
         console.error(error);
       }
     },
-    async fetchAddStudentContracts({}, contract) {
+    async fetchAddStudentContracts(_, contract) {
       try {
         await apiService.post('/contracts', contract);
       } catch (error) {
