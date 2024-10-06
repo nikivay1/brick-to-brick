@@ -40,20 +40,20 @@ const props = defineProps({
     type: String,
     default: 'text'
   }
-})
-const inputValue = ref(props.modelValue)
-const isFocused = ref(false)
+});
+const inputValue = ref(props.modelValue);
+const isFocused = ref(false);
 
 const onBlur = () => {
   if (!inputValue.value) {
     isFocused.value = false;
   }
-}
+};
 watch(() => props.modelValue,
   (newVal) =>  {
     inputValue.value = newVal;
   }
-)
+);
 </script>
 
 <style scoped lang="scss">

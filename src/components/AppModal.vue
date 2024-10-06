@@ -26,8 +26,8 @@ const props = defineProps({
     type: Boolean,
     required: true
   }
-})
-const emit = defineEmits(['closeModal'])
+});
+const emit = defineEmits(['closeModal']);
 const isVisible = ref(props.modelValue);
 
 watch(

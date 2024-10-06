@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'HeaderBar'
-}
+};
 </script>
 
 <style lang="scss" scoped>

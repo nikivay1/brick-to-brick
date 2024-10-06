@@ -10,7 +10,7 @@ const props = defineProps({
     type: Boolean,
     required: true
   }
-})
+});
 </script>
 
 <style scoped>

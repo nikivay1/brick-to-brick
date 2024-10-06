@@ -9,11 +9,11 @@
 import { defineEmits } from 'vue';
 import Icon from '@/components/AppIcon.vue';
 
-const emit = defineEmits(['click'])
+const emit = defineEmits(['click']);
 
 const onClick = () => {
   emit('click');
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -17,7 +17,8 @@ const store = createStore({
   actions: {
     async fetchStudents({ commit }) {
       try {
-        const response = await apiService.get('/', { results: 10 });
+        const response = await apiService.get('/student');
+        console.log(response.data);
         commit('setStudents', response.data.results);
       } catch (error) {
         console.error('Ошибка при получении студентов:', error);

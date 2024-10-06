@@ -51,7 +51,7 @@ const props = defineProps({
     type: String,
     default: 'https://via.placeholder.com/100x100?text=JPG'
   }
-})
+});
 
 const printContract = () => {
   console.log(`Печать договора: ${props.title}`);

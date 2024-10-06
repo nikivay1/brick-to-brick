@@ -24,8 +24,8 @@ export default {
       commit('setError', null);
 
       try {
-        const response = await apiService.get('/', { results: 10, nat: 'us'});
-        commit('setStudents', response.data.results);
+        const response = await apiService.get('/student');
+        commit('setStudents', response.data);
       } catch (error) {
         commit('setError', 'Ошибка при загрузке студентов');
         console.error(error);

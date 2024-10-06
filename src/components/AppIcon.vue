@@ -31,7 +31,7 @@ const props = defineProps({
     type: String,
     default: '16px'
   }
-})
+});
 
 const computedClass = () => {
   if (this.large) {
@@ -49,7 +49,7 @@ const computedClass = () => {
     width: this.width,
     height: this.height
   };
-}
+};
 
 const iconSrc = computed(() => {
   try {

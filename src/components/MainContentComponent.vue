@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'MainContentComponent'
-}
+};
 </script>
 
 <style scoped>

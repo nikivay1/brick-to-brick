@@ -7,7 +7,7 @@ import '@/styles/root.scss';
 
 export default {
   name: 'App'
-}
+};
 </script>
 
 <style>

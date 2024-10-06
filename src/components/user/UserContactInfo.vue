@@ -32,36 +32,36 @@
 <script setup>
 import { defineProps } from 'vue';
 const props = defineProps({
-    phone: {
-      type: String,
-      required: true
-    },
-    birthDate: {
-      type: String,
-      required: true
-    },
-    age: {
-      type: Number,
-      required: true
-    },
-    status: {
-      type: String,
-      required: true
-    },
-    isActive: {
-      type: Boolean,
-      required: true
-    },
-    parentPhone: {
-      type: String,
-      required: true
-    },
-    address: {
-      type: String,
-      required: true
-    }
+  phone: {
+    type: String,
+    required: true
+  },
+  birthDate: {
+    type: String,
+    required: true
+  },
+  age: {
+    type: Number,
+    required: true
+  },
+  status: {
+    type: String,
+    required: true
+  },
+  isActive: {
+    type: Boolean,
+    required: true
+  },
+  parentPhone: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
   }
-)
+}
+);
 </script>
 
 <style scoped lang="scss">
@@ -82,6 +82,7 @@ const props = defineProps({
     margin: unset;
     text-align: left;
     font-size: 18px;
+    text-wrap: nowrap;
     color: $text-main-color;
   }
 }

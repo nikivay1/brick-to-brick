@@ -94,12 +94,12 @@ const form = ref({
   notifyOnEnd: false,
   createTaskOnEnd: false,
   file: null,
-})
+});
 
 const handleFileUpload = (event) => {
   form.value.file = event.target.files[0];
   console.log('Загружен файл:', form.value.file);
-}
+};
 
 </script>
 

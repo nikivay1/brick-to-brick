@@ -70,14 +70,14 @@ const contracts =  ref([
     thumbnailUrl: 'https://via.placeholder.com/100x100?text=XLS'
   }
 ]);
-const isModalVisible = ref(false)
+const isModalVisible = ref(false);
 
 const openModal = () => {
   isModalVisible.value = true;
-}
+};
 const closeModal = () => {
   isModalVisible.value = false;
-}
+};
 </script>
 
 <style scoped lang="scss">

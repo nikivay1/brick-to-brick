@@ -10,7 +10,7 @@
     </div>
 
     <div v-else>
-      <UserProfile v-if="randomStudent" :user="randomStudent"/>
+      <UserProfile v-if="student" :user="student"/>
       <ContractList />
     </div>
   </section>
@@ -22,21 +22,15 @@ import ContractList from '@/components/card/ContractList.vue';
 import Spinner from '@/components/LoadingSpinner.vue';
 import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
-import { ref } from 'vue';
 
 
 const store = useStore();
 
-const randomStudent = ref(null);
-
 onMounted(async () => {
   await store.dispatch('students/fetchStudents');
-  if (students.value.length > 0) {
-    randomStudent.value = students.value[Math.floor(Math.random() * students.value.length)];
-  }
 });
 
-const students = computed(() => store.getters['students/students']);
+const student = computed(() => store.getters['students/students']);
 const isLoading = computed(() => store.getters['students/isLoading']);
 const hasError = computed(() => store.getters['students/hasError']);
 const errorMessage = computed(() => store.getters['students/errorMessage']);
