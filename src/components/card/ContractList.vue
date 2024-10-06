@@ -3,7 +3,7 @@
     <ContractCard
       v-for="contract in contracts"
       :key="contract.id"
-      :title="contract.title"
+      :title="contract.documentName"
       :status="contract.status"
       :startDate="contract.startDate"
       :endDate="contract.endDate"
