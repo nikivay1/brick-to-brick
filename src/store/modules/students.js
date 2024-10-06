@@ -37,15 +37,21 @@ export default {
         commit('setLoading', false);
       }
     },
-    async fetchStudentsContracts({ commit }) {
+    async fetchStudentsContracts({ commit },  filters) {
       try {
-        const response = await apiService.get('/contracts');
+        const response = await apiService.get('/contracts', filters);
         commit('setContracts', response.data);
       } catch (error) {
-        commit('setError', 'Ошибка при загрузке списка контрактов');
         console.error(error);
       }
-    }
+    },
+    async fetchAddStudentContracts(contract) {
+      try {
+        await apiService.put('/contracts', contract);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   getters: {
     students: (state) => state.students,
