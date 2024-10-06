@@ -61,7 +61,7 @@
       Добавить документ
     </template> 
     <template #default>
-      <DocumentForm />
+      <DocumentForm v-model="form" />
     </template>
     <template #footer>
       <div class="flex justify-center gap-2">
@@ -80,7 +80,6 @@ import AddDocumentButton from '@/components/card/AddContractButton.vue';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { onMounted } from 'vue';
-
 
 const store = useStore();
 onMounted(async () => {
@@ -122,6 +121,22 @@ const sortOptions = [{
 }];
 const getContracts = async () => {
   await store.dispatch('students/fetchStudentsContracts', filters.value);
+};
+
+const form = ref({
+  documentType: 'Договор',
+  documentName: '',
+  documentNumber: '',
+  startDate: null,
+  endDate: null,
+  notifyOnEnd: false,
+  createTaskOnEnd: false,
+  file: null,
+});
+const addDocument = async () => {
+  await store.dispatch('students/fetchAddStudentContracts', form.value);
+  closeModal();
+  await getContracts();
 };
 
 const isModalVisible = ref(false);

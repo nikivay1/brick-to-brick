@@ -4,15 +4,15 @@
       <label>Тип документа:</label>
       <div class="flex flex-column align-start gap-1">
         <label>
-          <input type="radio" value="contract" v-model="form.documentType" />
+          <input type="radio" value="contract" v-model="model.documentType" />
           Договор
         </label>
         <label>
-          <input type="radio" value="synopsis" v-model="form.documentType" />
+          <input type="radio" value="synopsis" v-model="model.documentType" />
           Справка
         </label>
         <label>
-          <input type="radio" value="other" v-model="form.documentType" />
+          <input type="radio" value="other" v-model="model.documentType" />
           Другое
         </label>
       </div>
@@ -20,7 +20,7 @@
 
     <div class="form-group flex gap-2">
       <Input
-        v-model="form.documentName"
+        v-model="model.documentName"
         label="Название документа"
         :required="true"
       />
@@ -28,23 +28,23 @@
     
     <div class="form-group flex gap-2">
       <Input
-        v-model="form.documentName"
+        v-model="model.documentName"
         label="Номер"
       />
     </div>
 
     <div class="form-group flex gap-1">
-      <label :for="form.startDate">Действует с:</label>
+      <label :for="model.startDate">Действует с:</label>
       <Datepicker 
-        v-model="form.startDate"
+        v-model="model.startDate"
         lang="RU"        
         :format="'dd.MM.yyyy'"
         :show-calendar-on-focus="false"
         :auto-apply="true" 
       />
-      <label :for="form.endDate">по:</label>
+      <label :for="model.endDate">по:</label>
       <Datepicker 
-        v-model="form.endDate" 
+        v-model="model.endDate" 
         lang="RU"     
         :format="'dd.MM.yyyy'"
         :show-calendar-on-focus="false"
@@ -54,7 +54,7 @@
     <div class="flex flex-column gap-4">
       <div class="form-group flex gap-2">
         <label class="form-control">
-          <input type="checkbox" v-model="form.notifyOnEnd" />
+          <input type="checkbox" v-model="model.notifyOnEnd" />
           <span>Оповещать об окончании</span>
           
         </label>
@@ -62,7 +62,7 @@
 
       <div class="form-group flex gap-2">
         <label class="form-control" >
-          <input type="checkbox" v-model="form.createTaskOnEnd" />
+          <input type="checkbox" v-model="model.createTaskOnEnd" />
           <span>Создавать задачу при окончании</span>
         </label>
       </div>
@@ -81,8 +81,8 @@
           Загрузить файл
         </span>
       </div>
-      <p v-if="!form.file">{{ dropZoneMessage }}</p>
-      <p v-if="form.file">Загружен файл: {{ form.file.name }}</p>
+      <p v-if="!model.file">{{ dropZoneMessage }}</p>
+      <p v-if="model.file">Загружен файл: {{ model.file.name }}</p>
     </div>
   </div>
   
@@ -92,18 +92,11 @@
 import Datepicker from 'vue3-datepicker';
 import Input from '@/components/AppInput.vue';
 import Icon from '@/components/AppIcon.vue';
-import { ref } from 'vue';
+import { ref, defineModel} from 'vue';
 
-const form = ref({
-  documentType: 'Договор',
-  documentName: '',
-  documentNumber: '',
-  startDate: null,
-  endDate: null,
-  notifyOnEnd: false,
-  createTaskOnEnd: false,
-  file: null,
-});
+
+const model = defineModel();
+
 const dropZoneMessage = ref('Выберите файл или перетащите его сюда');
 
 // Обработка события перетаскивания файла над областью
@@ -120,8 +113,8 @@ const handleDragLeave = () => {
 const handleDrop = (event) => {
   const droppedFiles = event.dataTransfer.files;
   if (droppedFiles.length) {
-    form.value.file = droppedFiles[0];
-    dropZoneMessage.value = `Файл "${form.value.file.name}" загружен`;
+    model.value.file = droppedFiles[0];
+    dropZoneMessage.value = `Файл "${model.value.file.name}" загружен`;
   }
 };
 // Метод для загрузки файла 
