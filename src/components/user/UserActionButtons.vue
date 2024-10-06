@@ -22,6 +22,7 @@ const emitDelete = () => {
 
 <style scoped lang="scss">
 @import '@/styles/_variables.scss';
+
 .action-buttons {
   display: flex;
   flex-direction: column;

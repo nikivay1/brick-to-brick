@@ -11,10 +11,12 @@ export default {
 </script>
 
 <style>
-body, html, #app {
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700;800&display=swap');
+
+body, html, #app, button {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Alegreya Sans', sans-serif;
   height: 100%;
 }
 </style>

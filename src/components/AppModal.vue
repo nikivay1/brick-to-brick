@@ -1,42 +1,49 @@
 <template>
   <div v-if="modelValue" class="modal-overlay">
     <div class="modal-content">
-      <div class="modal-header">
-        <slot name="header"></slot>
-        <button class="close-btn" @click="closeModal">×</button>
+      <div class="modal-header flex justify-space-between align-center">
+        <div class="modal-header_title">
+          <slot name="title"></slot>
+        </div>
+        <Icon src="close.svg" @click="closeModal" />
       </div>
 
       <div class="modal-body">
         <slot></slot> <!-- Основной контент модального окна -->
       </div>
 
-      <div class="modal-footer">
-        <slot name="footer"></slot>
-      </div>
+      <slot name="footer"></slot>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, defineProps, defineEmits, watch} from 'vue';
+import Icon from '@/components/AppIcon.vue';
+
 const props = defineProps({
   modelValue: {
     type: Boolean,
     required: true
   }
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['closeModal'])
 const isVisible = ref(props.modelValue);
 
-watch(() => props.modelValue, (newVal) => {
-  isVisible.value = newVal;
-});
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    isVisible.value = newValue;
+  }
+);
 const closeModal = () => {
-  emit('update:modelValue', false);
+  emit('closeModal', false);
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/_variables.scss';
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -49,21 +56,20 @@ const closeModal = () => {
   align-items: center;
   z-index: 999;
 }
+.modal-header{
+  color: $primary-color;
+  padding-bottom: $offset-20;
+  &_title{    
+    font-size: 36px;
+    font-weight: 700;
+  }
+}
 .modal-content {
-  background-color: #fff;
-  padding: 20px;
+  background-color: $bg-color;
+  padding: 30px;
   border-radius: 8px;
-  max-width: 500px;
+  max-width: 650px;
   width: 100%;
   position: relative;
-}
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
 }
 </style>

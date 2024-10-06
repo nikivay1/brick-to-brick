@@ -1,6 +1,6 @@
 <template>
   <div class="icon">
-    <img :src="iconSrc" alt="icon" :width="computedWidth" :height="computedHeight" />
+    <img :src="iconSrc" :alt="props.alt" :style="computedClass" />
   </div>
 </template>
 
@@ -11,13 +11,46 @@ const props = defineProps({
     type: String,
     required: true
   },
+  alt: {
+    type: String,
+    default: ''
+  },
+  large: {
+    type: Boolean,
+    default: false
+  },
   small: {
     type: Boolean,
     default: false
+  },
+  width: {
+    type: String,
+    default: '16px' 
+  },
+  height: {
+    type: String,
+    default: '16px'
   }
 })
-const computedWidth = computed(() => (props.small ? 16 : 24));
-const computedHeight = computed(() => (props.small ? 16 : 24));
+
+const computedClass = () => {
+  if (this.large) {
+    return {
+      width: '32px',
+      height: '32px'
+    };
+  } else if (this.small) {
+    return {
+      width: '12px',
+      height: '12px'
+    };
+  }
+  return {
+    width: this.width,
+    height: this.height
+  };
+}
+
 const iconSrc = computed(() => {
   try {
     return require(`@/assets/icon/${props.src}`);
